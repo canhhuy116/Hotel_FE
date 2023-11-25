@@ -1,6 +1,7 @@
 import About from '../pages/about';
 import Home from '../pages/home';
-import { HomeIcon, BookmarkIcon } from '@heroicons/react/24/solid';
+import Room from '../pages/room';
+import { BookmarkIcon, HomeIcon, KeyIcon } from '@heroicons/react/24/solid';
 
 export interface IRoute {
   path: string;
@@ -13,7 +14,7 @@ export interface IRoute {
 
 export const appRouters: IRoute[] = [
   {
-    path: '/home',
+    path: '/',
     title: 'home',
     name: 'Trang chủ',
     icon: HomeIcon,
@@ -28,6 +29,15 @@ export const appRouters: IRoute[] = [
     icon: BookmarkIcon,
     showInMenu: true,
     component: About,
+  },
+
+  {
+    path: '/room',
+    title: 'room',
+    name: 'Phòng',
+    icon: KeyIcon,
+    showInMenu: true,
+    component: Room,
   },
 ];
 
