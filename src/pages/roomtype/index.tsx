@@ -1,6 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { NavLink } from 'react-router-dom';
 import Dropdown from '../../components/dropdown';
+import { useEffect, useState } from 'react';
+import { IRoomType } from '../../interfaces/room';
+import { RoomTypeService } from '../../services/room/roomType.service';
+import { FoodOptions } from '../../constant';
 
 export const generateFakeRoomType = (id: number) => ({
   id: id,
@@ -13,7 +17,19 @@ export const generateFakeRoomType = (id: number) => ({
 });
 
 const RoomType = () => {
-  const fakeRoomTypes = Array.from({ length: 5 }, (_, index) => generateFakeRoomType(index + 1));
+  const roomTypeService = new RoomTypeService();
+  const [roomTypes, setRoomTypes] = useState<IRoomType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const getAllRoomTypes = async () => {
+    const roomTypes = await roomTypeService.getAllRoomTypes({ limit: 2, page: 1 });
+    setRoomTypes(roomTypes);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getAllRoomTypes();
+  }, []);
 
   return (
     <div className="flex flex-wrap flex-col">
@@ -35,46 +51,44 @@ const RoomType = () => {
       <div className="sm:w-full pr-4 pl-4">
         <div className="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 card card-table">
           <div className="flex-auto p-6 card-body booking_card">
-            <div className="block w-full overflow-auto scrolling-touch">
-              <table className="datatable w-full max-w-full mb-4 bg-transparent table-stripped w-full max-w-full mb-4 bg-transparent table-hover table-center mb-0 table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Bed Count</th>
-                    <th>Price</th>
-                    <th>Charges For Cancellation</th>
-                    <th>Food Option</th>
-                    <th className="text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {fakeRoomTypes.map(roomType => (
-                    <tr key={roomType.id}>
-                      <td>{roomType.name}</td>
-                      <td>{roomType.bedCount}</td>
-                      <td>{roomType.price}</td>
-                      <td>{roomType.chargesForCancellation === 0 ? 'Free' : `${roomType.chargesForCancellation}%`}</td>
-                      <td>{roomType.foodOption}</td>
-                      <td>
-                        <div className="actions">
-                          <a
-                            href="#"
-                            className={`inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  ${
-                              roomType.status === 'Active' ? 'bg-success-light' : 'bg-danger-light'
-                            } mr-2`}
-                          >
-                            {roomType.status}
-                          </a>
-                        </div>
-                      </td>
-                      <td className="text-right">
-                        <Dropdown editLink={`detail/${roomType.id}`} />
-                      </td>
+            {loading ? (
+              <div className="flex items-center justify-center w-56 h-56 border border-gray-200 rounded-lg bg-gray-50">
+                <div className="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse">
+                  loading...
+                </div>
+              </div>
+            ) : (
+              <div className="block w-full overflow-auto scrolling-touch">
+                <table className="datatable w-full max-w-full mb-4 bg-transparent table-stripped w-full max-w-full mb-4 bg-transparent table-hover table-center mb-0 table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Bed Count</th>
+                      <th>Price</th>
+                      <th>Charges For Cancellation</th>
+                      <th>Food Option</th>
+                      <th className="text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {roomTypes.map(roomType => (
+                      <tr key={roomType.id}>
+                        <td>{roomType.name}</td>
+                        <td>{roomType.bedCount}</td>
+                        <td>{roomType.price}</td>
+                        <td>
+                          {roomType.chargesForCancellation === 0 ? 'Free' : `${roomType.chargesForCancellation}%`}
+                        </td>
+                        <td>{FoodOptions.find(foodOption => foodOption.value === roomType.foodOption)?.label}</td>
+                        <td className="text-right">
+                          <Dropdown editLink={`detail/${roomType.id}`} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
             <div className="flex justify-end">
               <a
                 href="#"

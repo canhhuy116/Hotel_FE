@@ -1,3 +1,6 @@
+export const URL_API = 'http://localhost:8080/';
+export const URL_APP = 'http://localhost:5173';
+
 export const StatusOptions = [
   { value: 'available', label: 'Còn phòng' },
   { value: 'unavailable', label: 'Hết phòng' },
