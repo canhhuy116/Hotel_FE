@@ -65,7 +65,7 @@ const RoomDetail = () => {
               <div className="mb-4">
                 <label>Room Number</label>
                 <input
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   type="text"
                   defaultValue={room?.roomId || formDataRef.current.roomNumber}
                   onChange={e => {
@@ -78,7 +78,7 @@ const RoomDetail = () => {
               <div className="mb-4">
                 <label>Room Type</label>
                 <select
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   id="sel1"
                   name="sellist1"
                   defaultValue={room?.roomType || formDataRef.current.roomType}
@@ -88,7 +88,7 @@ const RoomDetail = () => {
                 >
                   <option>Select</option>
                   {fakeRoomTypes.map(roomType => (
-                    <option key={roomType}>{roomType}</option>
+                    <option value={roomType}>{roomType}</option>
                   ))}
                 </select>
               </div>
@@ -97,7 +97,7 @@ const RoomDetail = () => {
               <div className="mb-4">
                 <label>Status</label>
                 <select
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   id="sel2"
                   name="sellist1"
                   defaultValue={room?.status || formDataRef.current.status}
@@ -107,63 +107,11 @@ const RoomDetail = () => {
                 >
                   <option>Select</option>
                   {StatusOptions.map(status => (
-                    <option key={status.value}>{status.label}</option>
+                    <option value={status.value}>{status.label}</option>
                   ))}
                 </select>
               </div>
             </div>
-            {/* <div className="md:w-1/3 pr-4 pl-4">
-              <div className="mb-4">
-                <label>Food</label>
-                <select
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                  id="sel3"
-                  name="sellist1"
-                >
-                  <option>Select</option>
-                  <option>Free Breakfast</option>
-                  <option>Free Lunch</option>
-                  <option>Free Dinner</option>
-                  <option>Free Breakfast &amp; Dinner</option>
-                  <option>Free Welcome Drink</option>
-                  <option>No Free Food</option>
-                </select>
-              </div>
-            </div>
-            <div className="md:w-1/3 pr-4 pl-4">
-              <div className="mb-4">
-                <label>Bed Count</label>
-                <select
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                  id="sel"
-                  name="sellist1"
-                >
-                  <option>Select</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                </select>
-              </div>
-            </div>
-            <div className="md:w-1/3 pr-4 pl-4">
-              <div className="mb-4">
-                <label>Charges For cancellation</label>
-                <select
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                  id="sel4"
-                  name="sellist1"
-                >
-                  <option>Select</option>
-                  <option>Free</option>
-                  <option>5% Before 24Hours</option>
-                  <option>No Cancellation Allow</option>
-                </select>
-              </div>
-            </div> */}
-
             <div className="md:w-1/3 pr-4 pl-4">
               <div className="mb-4">
                 <label>Upload images</label>
@@ -182,7 +130,7 @@ const RoomDetail = () => {
               <div className="mb-4">
                 <label>Description</label>
                 <textarea
-                  className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   rows={5}
                   id="comment"
                   name="text"
