@@ -73,10 +73,10 @@ button,
 button:focus {
   outline: none;
 }
-input[type='file'] {
+/* input[type='file'] {
   height: auto;
   min-height: calc(1.5em + 0.75rem + 2px);
-}
+} */
 input[type='text'],
 input[type='password'] {
   -webkit-appearance: none;

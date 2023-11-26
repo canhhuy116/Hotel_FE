@@ -1,22 +1,39 @@
 import { faker } from '@faker-js/faker';
 import '../../assets/css/style.css';
 import Dropdown from '../../components/dropdown';
+import { NavLink } from 'react-router-dom';
 
-const generateFakeRoom = (id: number) => ({
-  bookingId: `ROOM-${id}`,
+export const generateFakeRoom = (id: number) => ({
+  roomId: `ROOM-${id}`,
   name: faker.person.fullName(),
   roomType: faker.helpers.arrayElement(['Single', 'Double']),
   bedCount: faker.helpers.rangeToNumber({ min: 1, max: 10 }),
   price: faker.helpers.rangeToNumber({ min: 100, max: 1000 }),
   status: faker.helpers.arrayElement(['Active', 'Inactive']),
+  description: faker.lorem.paragraph(),
 });
 
 const Room = () => {
   // Generate fake room data for demonstration
-  const fakeRooms = Array.from({ length: 6 }, (_, index) => generateFakeRoom(index + 1));
+  const fakeRooms = Array.from({ length: 5 }, (_, index) => generateFakeRoom(index + 1));
 
   return (
-    <div className="flex flex-wrap ">
+    <div className="flex flex-wrap flex-col">
+      <div className="page-header">
+        <div className="flex flex-wrap items-center">
+          <div className=" flex-grow max-w-full flex-1 px-4">
+            <div className="mt-5">
+              <h4 className="mb-3 float-left mt-2">All Rooms</h4>
+              <NavLink
+                to="/room/add"
+                className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 float-right veiwbutton"
+              >
+                Add Room
+              </NavLink>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="sm:w-full pr-4 pl-4">
         <div className="flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 card card-table">
           <div className="flex-auto p-6 card-body booking_card">
@@ -35,8 +52,8 @@ const Room = () => {
                 </thead>
                 <tbody>
                   {fakeRooms.map(room => (
-                    <tr key={room.bookingId}>
-                      <td>{room.bookingId}</td>
+                    <tr key={room.roomId}>
+                      <td>{room.roomId}</td>
                       <td>
                         <h2 className="table-avatar">
                           <a href="profile.html" className="avatar avatar-sm mr-2">
@@ -44,7 +61,7 @@ const Room = () => {
                           </a>
                           <a href="profile.html">
                             {room.name}
-                            <span>{`#${room.bookingId.slice(4)}`}</span>
+                            <span>{`#${room.roomId.slice(5)}`}</span>
                           </a>
                         </h2>
                       </td>
@@ -65,7 +82,7 @@ const Room = () => {
                         </div>
                       </td>
                       <td className="text-right">
-                        <Dropdown />
+                        <Dropdown editLink={`detail/${room.roomId.slice(5)}`} />
                       </td>
                     </tr>
                   ))}
