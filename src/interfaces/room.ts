@@ -1,14 +1,19 @@
 import { Image } from './image';
 
 export interface IRoom {
-  id: number;
+  id: string;
   name: string;
+  roomType: string;
+  bedCount: number;
   price: number;
+  status: string;
   imageUrls: string[];
+  description: string;
+  roomTypeId?: string;
 }
 
 export interface IRoomType {
-  id: number;
+  id: string;
   name: string;
   price: number;
   bedCount: number;
@@ -19,8 +24,9 @@ export interface IRoomType {
 export interface CreateRoom {
   name: string;
   description: string;
-  roomTypeId: number;
+  roomTypeId: string;
   images: Image[];
+  status: string;
 }
 
 export interface CreateRoomType {
